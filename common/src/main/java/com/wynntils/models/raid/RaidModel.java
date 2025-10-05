@@ -482,6 +482,12 @@ public final class RaidModel extends Model {
         return currentRaid;
     }
 
+    public int getRaidBuffsCount(String playerName) {
+        if (this.currentRaid == null) return 0;
+        if (!partyRaidBuffs.containsKey(playerName)) return 0;
+        return partyRaidBuffs.get(playerName).size();
+    }
+
     public List<String> getRaidMajorIds(String playerName) {
         if (this.currentRaid == null) return List.of();
         if (!partyRaidBuffs.containsKey(playerName)) return List.of();

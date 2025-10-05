@@ -25,6 +25,9 @@ public class RaidProgressOverlay extends TextOverlay {
     public final Config<Boolean> showIntermission = new Config<>(false);
 
     @Persisted
+    public final Config<Boolean> showGambits = new Config<>(true);
+
+    @Persisted
     public final Config<Boolean> showMilliseconds = new Config<>(true);
 
     @Persisted
@@ -39,7 +42,7 @@ public class RaidProgressOverlay extends TextOverlay {
     public RaidProgressOverlay() {
         super(
                 new OverlayPosition(
-                        120,
+                        80,
                         5,
                         VerticalAlignment.TOP,
                         HorizontalAlignment.LEFT,
@@ -80,6 +83,12 @@ public class RaidProgressOverlay extends TextOverlay {
     private void buildTemplates() {
         StringBuilder templateBuilder = new StringBuilder("{concat(\"§6§l§n\";current_raid;\"\n\";");
         StringBuilder previewBuilder = new StringBuilder("§6§l§nNest of the Grootslangs\n\n");
+
+        if (showGambits.get()) {
+            previewBuilder.append(
+                    "Active Gambits:\nFarsighted's\nMaddening Mage's (next misfire in 3)\nGlutton's 0/2\n\n");
+            templateBuilder.append("");
+        }
 
         for (int i = 0; i < Models.Raid.MAXIMUM_CHALLENGE_ROOMS; i++) {
             templateBuilder.append(getChallengeTemplate(i + 1));
